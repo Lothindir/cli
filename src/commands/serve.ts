@@ -32,7 +32,7 @@ export default class Serve extends Command {
     createServer().listen(flags.port)
 
     console.log('')
-    utils.action('HTTP', `Started on ${apiUrl}`)
+    utils.action('API Server:', apiUrl)
 
     await processDocs(basePath, true, { apiUrl })
   }
