@@ -18,7 +18,7 @@ import imageProcessor from './imageProcessor'
 import watcher from './watcher'
 import { IConfig } from '../contracts/index'
 
-export default async function processDocs (basePath: string, watch: boolean) {
+export default async function processDocs (basePath: string, watch: boolean, configOptions) {
   const ctx = new Context(basePath)
 
   try {
@@ -27,6 +27,7 @@ export default async function processDocs (basePath: string, watch: boolean) {
      */
     const store = new Datastore(ctx)
     ctx.set('cli', 'store', store)
+    ctx.set('cli', 'configOptions', configOptions)
     await store.load(true)
 
     /**

@@ -28,11 +28,12 @@ export default class Serve extends Command {
       next()
     })
 
+    const apiUrl = `http://localhost:${flags.port}`
     createServer().listen(flags.port)
 
     console.log('')
-    utils.action('HTTP', 'Started on http://localhost:5000')
+    utils.action('HTTP', `Started on ${apiUrl}`)
 
-    await processDocs(basePath, true)
+    await processDocs(basePath, true, { apiUrl })
   }
 }
