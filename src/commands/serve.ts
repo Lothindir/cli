@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import processDocs from '../services/processDocs'
 import * as httpServer from '@dimerapp/http-server'
+import * as assetsMiddleware from '@dimerapp/assets-middleware'
 import * as utils from '@dimerapp/cli-utils'
 
 export default class Serve extends Command {
@@ -14,6 +15,7 @@ export default class Serve extends Command {
     const basePath = process.cwd()
     const { router, createServer } = httpServer()
 
+    router.use(assetsMiddleware(basePath))
     router.use((req, res, next) => {
       req.basePath = basePath
       next()

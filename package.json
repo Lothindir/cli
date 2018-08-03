@@ -7,6 +7,7 @@
   },
   "bugs": "https://github.com/dimerapp/cli/issues",
   "dependencies": {
+    "@dimerapp/assets-middleware": "^1.0.0",
     "@dimerapp/cli-utils": "^1.0.2",
     "@dimerapp/config-parser": "^1.0.7",
     "@dimerapp/context": "^1.0.1",
