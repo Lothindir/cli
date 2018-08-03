@@ -68,6 +68,7 @@
     "prepack": "rm -rf lib && tsc && oclif-dev manifest && oclif-dev readme && npm shrinkwrap",
     "prepare": "rm -rf lib && tsc",
     "test": "japa",
+    "test:win": "node ./node_modules/japa-cli/index.js",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
