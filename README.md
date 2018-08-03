@@ -28,6 +28,8 @@ Here we discuss technical aspects of Dimer along with `Why it was created`. We r
 
 ### 💁 [Official docs ➞](https://guides.dimerapp.org)
 
+---
+
 ## Why Dimer was created?
 There are a handful of **static site generators** ranging from Jekyll to VuePress. They all work well in what they do but are too generic and flexible in what they output. On the other hand, Dimer is very strict with its use cases (you can only create documentation websites with it).
 
@@ -36,6 +38,8 @@ In brief, I wanted a tool, which needs almost zero configuration and outputs a w
 1. Inbuilt search.
 2. Option to create multiple versions of docs.
 3. Easy to build/integrate custom website design (since I want my sites to have their own identity).
+
+---
 
 ## Do you think React or Vue would have become as powerful as they are, without the existence of REST API or JSON?
 
@@ -47,6 +51,8 @@ You can consume this API to create:
 
 1. Documentation websites.
 2. Or a book (as PDF).
+
+---
 
 ## Features
 All of the following features are supported out of the box by Dimer and requires minimal or no configuration.
@@ -60,17 +66,23 @@ All of the following features are supported out of the box by Dimer and requires
 
 Here's a zoomed out view of Dimer
 
-![](https://res.cloudinary.com/adonisjs/image/upload/v1533132137/dimer-zoomed-out-view_jdarwr.svg)
+<img src="https://res.cloudinary.com/adonisjs/image/upload/v1533132137/dimer-zoomed-out-view_jdarwr.svg" width="250" />
+
+---
 
 ## Language agnostic CLI
 
 It doesn't matter, whether you are Rubyist or write code in Php or Python. Dimer works with no additional dependencies on **Windows**, **Mac** and **Linux**.
+
+---
 
 ## Multiple versions of documentation
 
 Projects that supports older versions like [Ember](https://www.emberjs.com/), [AdonisJs](https://adonisjs.com) or [Laravel](http://laravel.com/) do need documentation for these versions.
 
 Dimer supports multiple versions as a first-class citizen. You can define a directory for each version of docs inside the `config.`
+
+---
 
 ## Image detection
 
@@ -81,6 +93,8 @@ When writing documentation, you can reference images from anywhere on your compu
 3. When processing the file, a thumbnail will be generated for progressive image loading.
 4. Files are saved inside `dist/__assets` directory.
 5. Image references are updated inside the generated JSON files.
+
+---
 
 ## Extended Markdown
 
@@ -110,6 +124,8 @@ This is a tip
 ```
 
 Here's the complete [syntax guide](https://dimerapp.com/syntax-guide)
+
+---
 
 ## Packages
 The following are the first party packages used to build dimer.
