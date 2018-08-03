@@ -11,7 +11,7 @@
     "@dimerapp/cli-utils": "^1.0.2",
     "@dimerapp/config-parser": "^1.0.9",
     "@dimerapp/context": "^1.0.1",
-    "@dimerapp/datastore": "^1.0.18",
+    "@dimerapp/datastore": "^1.0.19",
     "@dimerapp/dfile": "^1.0.11",
     "@dimerapp/fs-client": "^1.0.11",
     "@dimerapp/http-server": "^1.0.6",
