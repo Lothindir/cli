@@ -59,14 +59,18 @@
     "bin": "dimer",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "macos": {
+      "identifier": "com.dimerapp.cli"
+    }
   },
   "repository": "dimerapp/cli",
   "scripts": {
     "mrm": "mrm --preset @adonisjs/mrm-preset",
-    "postpack": "rm -f oclif.manifest.json npm-shrinkwrap.json",
-    "prepack": "rm -rf lib && tsc && oclif-dev manifest && oclif-dev readme && npm shrinkwrap",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc && oclif-dev manifest && oclif-dev readme",
     "prepare": "rm -rf lib && tsc",
+    "pack": "oclif-dev pack",
     "test": "japa",
     "test:win": "node ./node_modules/japa-cli/index.js",
     "version": "oclif-dev readme && git add README.md"
