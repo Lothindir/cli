@@ -9,9 +9,16 @@ export default class Serve extends Command {
 
   public static flags = {
     help: flags.help({char: 'h'}),
+    port: flags.string({
+      char: 'p',
+      description: 'Http port to listen',
+      default: '5000',
+      required: false,
+    }),
   }
 
   public async run () {
+    const { flags } = this.parse(Serve)
     const basePath = process.cwd()
     const { router, createServer } = httpServer()
 
@@ -21,7 +28,7 @@ export default class Serve extends Command {
       next()
     })
 
-    createServer().listen(5000)
+    createServer().listen(flags.port)
 
     console.log('')
     utils.action('HTTP', 'Started on http://localhost:5000')
