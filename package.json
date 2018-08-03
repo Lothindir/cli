@@ -1,0 +1,72 @@
+{
+  "name": "@dimerapp/cli",
+  "version": "1.0.0",
+  "author": "virk",
+  "bin": {
+    "dimer": "./bin/run"
+  },
+  "bugs": "https://github.com/dimerapp/cli/issues",
+  "dependencies": {
+    "@dimerapp/cli-utils": "^1.0.2",
+    "@dimerapp/config-parser": "^1.0.7",
+    "@dimerapp/context": "^1.0.1",
+    "@dimerapp/datastore": "^1.0.17",
+    "@dimerapp/dfile": "^1.0.11",
+    "@dimerapp/fs-client": "^1.0.11",
+    "@dimerapp/http-server": "^1.0.5",
+    "@dimerapp/image": "^1.0.2",
+    "@oclif/command": "^1.4.36",
+    "@oclif/config": "^1.6.33",
+    "@oclif/plugin-help": "^2.0.5",
+    "pretty-bytes": "^5.1.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@adonisjs/mrm-preset": "^1.0.10",
+    "@oclif/dev-cli": "^1.15.4",
+    "@oclif/tslint": "^1.1.2",
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.5.5",
+    "globby": "^8.0.1",
+    "intercept-stdout": "^0.1.2",
+    "japa": "^1.0.6",
+    "japa-cli": "^1.0.1",
+    "mrm": "^1.2.1",
+    "ts-node": "^6.2.0",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/dimerapp/cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "dimer",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "dimerapp/cli",
+  "scripts": {
+    "mrm": "mrm --preset @adonisjs/mrm-preset",
+    "postpack": "rm -f oclif.manifest.json npm-shrinkwrap.json",
+    "prepack": "rm -rf lib && tsc && oclif-dev manifest && oclif-dev readme && npm shrinkwrap",
+    "prepare": "rm -rf lib && tsc",
+    "test": "japa",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
