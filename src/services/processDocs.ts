@@ -18,7 +18,7 @@ import imageProcessor from './imageProcessor'
 import watcher from './watcher'
 import { IConfig } from '../contracts/index'
 
-export default async function processDocs (basePath: string, watch: boolean, configOptions) {
+export default async function processDocs (basePath: string, configOptions, watcherFn?: Function) {
   const ctx = new Context(basePath)
 
   try {
@@ -73,8 +73,8 @@ export default async function processDocs (basePath: string, watch: boolean, con
       await Promise.all(added.map(({ no }) => store.indexVersion(no)))
     }
 
-    if (watch) {
-      watcher(ctx, client)
+    if (typeof (watcherFn) === 'function') {
+      watcher(ctx, client, watcherFn)
     }
   } catch (error) {
     utils.error(error)

@@ -79,7 +79,7 @@ async function handleDocRemoval (ctx, client, { versions, baseName }) {
   await ctx.get('store').persist()
 }
 
-export default function watcher (ctx, client) {
+export default function watcher (ctx, client, onEvent: Function) {
   client.watch(async (event, arg) => {
     try {
       /**
@@ -87,27 +87,32 @@ export default function watcher (ctx, client) {
        */
       if (['change:config', 'add:config'].indexOf(event) > -1) {
         await handleConfigChanges(ctx, client, event)
+        onEvent(event, arg)
         return
       }
 
       if (['change:doc', 'add:doc'].indexOf(event) > -1) {
         await handleDocChanges(ctx, client, arg)
+        onEvent(event, arg)
         return
       }
 
       if (event === 'unlink:doc') {
         await handleDocRemoval(ctx, client, arg)
+        onEvent(event, arg)
         return
       }
 
       if (event === 'unlink:version') {
         const versions = arg.map(({ no }) => no).join(', ')
         utils.attention(`Directory for versions {${versions}} is removed. Remove the reference from config too.`)
+        onEvent(event, arg)
         return
       }
 
       if (event === 'unlink:config') {
         utils.attention('You have pulled the plug (removed dimer.json)')
+        onEvent(event, arg)
         process.exit(0)
       }
 

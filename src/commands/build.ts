@@ -9,6 +9,6 @@ export default class Build extends Command {
   }
 
   public async run () {
-    await processDocs(process.cwd(), false, {})
+    await processDocs(process.cwd(), {})
   }
 }
