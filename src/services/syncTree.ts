@@ -12,7 +12,7 @@ import * as utils from '@dimerapp/cli-utils'
 
 export default async function syncTree (ctx, client) {
   const tree = await client.tree()
-  const versions = tree.map((node) => new Version(ctx, node.version, node.tree))
+  const versions: Version[] = tree.map((node) => new Version(ctx, node.version, node.tree))
 
   /**
    * Process all versions in parallel
@@ -31,8 +31,13 @@ export default async function syncTree (ctx, client) {
   /**
    * Print errors if any
    */
-  utils.filesErrors(ctx.get('paths').basePath, versions.reduce((collection, { errors }) => {
+  const errors = versions.reduce<any[]>((collection, { errors }) => {
     collection = collection.concat(errors)
     return collection
-  }, []))
+  }, [])
+
+  if (errors.length) {
+    utils.filesErrors(ctx.get('paths').basePath, errors)
+    console.log('')
+  }
 }

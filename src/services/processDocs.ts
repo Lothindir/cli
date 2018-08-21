@@ -69,11 +69,16 @@ export default async function processDocs (basePath: string, configOptions, watc
      * Create search index if enabled by end user
      */
     if ((ctx.get('config') as IConfig).compilerOptions.detectAssets) {
-      utils.info('create search index', true)
+      utils.info('creating search index')
       await Promise.all(added.map(({ no }) => store.indexVersion(no)))
     }
 
+    /**
+     * Start the watcher, when watcherFn is provided. Also all
+     * events will be forwarded to the watcherFn too.
+     */
     if (typeof (watcherFn) === 'function') {
+      utils.info('watching for file changes')
       watcher(ctx, client, watcherFn)
     }
   } catch (error) {

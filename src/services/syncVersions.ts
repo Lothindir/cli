@@ -12,6 +12,5 @@ import { ISyncedVersions } from '../contracts/index'
 
 export default async function syncVersions (ctx): Promise<ISyncedVersions> {
   utils.info('sync versions')
-  console.log('')
   return ctx.get('store').syncVersions(ctx.get('config').versions)
 }
