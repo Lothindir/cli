@@ -54,7 +54,20 @@ async function handleDocChanges (ctx, client, { versions, file }) {
   /**
    * Process doc for all the versions
    */
-  await Promise.all(versions.map((version) => processDoc(file, version, ctx)))
+  const docs = await Promise.all(versions.map((version) => processDoc(file, version, ctx)))
+
+  const errors = docs.reduce<any[]>((collection, { errors }) => {
+    collection = collection.concat(errors)
+    return collection
+  }, [])
+
+  /**
+   * Show errors if any
+   */
+  if (errors.length) {
+    utils.filesErrors(ctx.get('paths').basePath, errors)
+    console.log('')
+  }
 
   /**
    * Persist store: IMPORTANT
