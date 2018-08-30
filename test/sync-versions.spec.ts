@@ -13,7 +13,7 @@ import { join } from 'path'
 import * as fs from 'fs-extra'
 import * as intercept from 'intercept-stdout'
 
-import syncVersions from '../src/services/syncVersions'
+import syncZones from '../src/services/syncZones'
 
 const basePath = join(__dirname, 'app')
 
@@ -25,32 +25,35 @@ const interceptor = {
       return ''
     })
     return { stop, log }
-  }
+  },
 }
 
-test.group('Sync config', (group) => {
+test.group('Sync zones', (group) => {
   group.afterEach(async () => {
     await fs.remove(basePath)
   })
 
-  test('sync versions with store', async (assert) => {
+  test('sync zones and it\'s versions with store', async (assert) => {
     const store = {
-      versions: null,
-      syncVersions (versions) {
-        this.versions = versions
+      zones: null,
+      syncZones (zones) {
+        this.zones = zones
       },
     }
 
     const ctx = new Context(basePath)
     ctx.set('store', 'store', store)
     ctx.set('config', 'config', {
-      versions: [{ location: 'docs/1.0.0', no: '1.0.0' }]
+      zones: [{ slug: 'api', versions: [{ location: 'docs/1.0.0', no: '1.0.0' }] }],
     })
 
     const { stop, log } = interceptor.start()
-    await syncVersions(ctx)
+    await syncZones(ctx)
     stop()
 
-    assert.deepEqual(store.versions, [{ location: 'docs/1.0.0', no: '1.0.0' }])
+    assert.deepEqual(store.zones, [{
+      slug: 'api',
+      versions: [{ location: 'docs/1.0.0', no: '1.0.0' }]
+    }])
   })
 })

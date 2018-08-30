@@ -25,7 +25,7 @@ const interceptor = {
       return ''
     })
     return { stop, log }
-  }
+  },
 }
 
 test.group('Sync config', (group) => {
@@ -53,7 +53,7 @@ test.group('Sync config', (group) => {
     await syncConfig(ctx)
     stop()
 
-    assert.match(log.message, /Define atleast one version/)
+    assert.match(log.message, /Missing version\(s\) in config/)
     assert.isUndefined(ctx.get('config'))
   })
 
@@ -70,8 +70,8 @@ test.group('Sync config', (group) => {
 
     await fs.outputJSON(ctx.get('paths').configFile(), {
       versions: {
-        '1.0.0': 'docs/1.0.0'
-      }
+        '1.0.0': 'docs/1.0.0',
+      },
     })
 
     const { stop } = interceptor.start()
@@ -81,7 +81,11 @@ test.group('Sync config', (group) => {
     assert.deepEqual(ctx.get('config'), {
       cname: '',
       domain: '',
-      versions: [{ no: '1.0.0', location: 'docs/1.0.0', default: true }],
+      zones: [{
+        slug: 'default',
+        name: 'default',
+        versions: [{ no: '1.0.0', location: 'docs/1.0.0', default: true }]
+      }],
       websiteOptions: {},
       compilerOptions: {
         apiUrl: 'http://localhost:5000',

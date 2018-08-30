@@ -8,9 +8,9 @@
 */
 
 import * as utils from '@dimerapp/cli-utils'
-import { ISyncedVersions } from '../contracts/index'
+import { ISyncedZones, IConfig } from '../contracts/index'
 
-export default async function syncVersions (ctx): Promise<ISyncedVersions> {
+export default async function syncVersions (ctx): Promise<ISyncedZones> {
   utils.info('sync versions')
-  return ctx.get('store').syncVersions(ctx.get('config').versions)
+  return ctx.get('store').syncZones((ctx.get('config') as IConfig).zones)
 }

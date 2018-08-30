@@ -16,7 +16,7 @@ export default class Version extends Emitter {
   public processed: number = 0
   public errors: any[] = []
 
-  constructor (private ctx, private version: IVersion, private tree: any[]) {
+  constructor (private ctx, private zoneSlug: string, private version: IVersion, private tree: any[]) {
     super()
     this.total = this.tree.length
   }
@@ -35,7 +35,7 @@ export default class Version extends Emitter {
    */
   public async process () {
     for (let doc of this.tree) {
-      const { errors } = await processDoc(doc, this.version, this.ctx)
+      const { errors } = await processDoc(doc, this.zoneSlug, this.version, this.ctx)
 
       this.processed++
       this.emit('doc:processed')

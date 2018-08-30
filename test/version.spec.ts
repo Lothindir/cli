@@ -26,14 +26,14 @@ test.group('Version', (group) => {
     const ctx = new Context(basePath)
     const store = {
       docs: [],
-      saveDoc (version, filename, doc) {
-        this.docs.push({ version, filename, doc })
+      saveDoc (zoneSlug, version, filename, doc) {
+        this.docs.push({ zoneSlug, version, filename, doc })
       },
     }
 
     ctx.set('store', 'store', store)
 
-    const version = new Version(ctx, {
+    const version = new Version(ctx, 'api', {
       no: '1.0.0',
       name: '1.0.0',
       default: true,
@@ -45,8 +45,8 @@ test.group('Version', (group) => {
           metaData: {},
           fatalMessages: [],
           messages: [],
-          contents: 'hello'
-        }
+          contents: 'hello',
+        },
      ])
 
     await version.process()
@@ -54,11 +54,12 @@ test.group('Version', (group) => {
     assert.deepEqual(store.docs, [
       {
         doc: {
-          content: 'hello'
+          content: 'hello',
         },
+        zoneSlug: 'api',
         filename: 'foo.md',
-        version: '1.0.0'
-      }
+        version: '1.0.0',
+      },
     ])
 
     assert.equal(version.processed, 1)
@@ -76,7 +77,7 @@ test.group('Version', (group) => {
 
     ctx.set('store', 'store', store)
 
-    const version = new Version(ctx, {
+    const version = new Version(ctx, 'api', {
       no: '1.0.0',
       name: '1.0.0',
       default: true,
@@ -88,8 +89,8 @@ test.group('Version', (group) => {
         metaData: {},
         fatalMessages: ['Bad file'],
         messages: ['Bad file'],
-        contents: 'hello'
-      }
+        contents: 'hello',
+      },
     ])
 
     await version.process()
@@ -104,14 +105,14 @@ test.group('Version', (group) => {
     const ctx = new Context(basePath)
     const store = {
       docs: [],
-      saveDoc (version, filename, doc) {
-        this.docs.push({ version, filename, doc })
+      saveDoc (zoneSlug, version, filename, doc) {
+        this.docs.push({ zoneSlug, version, filename, doc })
       },
     }
 
     ctx.set('store', 'store', store)
 
-    const version = new Version(ctx, {
+    const version = new Version(ctx, 'api', {
       no: '1.0.0',
       name: '1.0.0',
       default: true,
@@ -123,8 +124,8 @@ test.group('Version', (group) => {
         metaData: {},
         fatalMessages: [],
         messages: ['Bad file'],
-        contents: 'hello'
-      }
+        contents: 'hello',
+      },
     ])
 
     await version.process()
@@ -132,11 +133,12 @@ test.group('Version', (group) => {
     assert.deepEqual(store.docs, [
       {
         doc: {
-          content: 'hello'
+          content: 'hello',
         },
+        zoneSlug: 'api',
         filename: 'foo.md',
-        version: '1.0.0'
-      }
+        version: '1.0.0',
+      },
     ])
 
     assert.equal(version.processed, 1)

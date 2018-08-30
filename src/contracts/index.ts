@@ -15,10 +15,16 @@ export type IVersionTree = {
   tree: any[],
 }
 
+export type IZone = {
+  slug: string,
+  name?: string,
+  versions: IVersion[]
+}
+
 export type IConfig = {
   domain: string,
   cname?: string,
-  versions: IVersion[],
+  zones: IZone[],
   websiteOptions: any,
   compilerOptions: {
     apiUrl: string,
@@ -31,4 +37,17 @@ export type IConfig = {
 export type ISyncedVersions = {
   added: IVersion[],
   removed: IVersion[],
+  updated: IVersion[]
+}
+
+export type ISyncedZone = {
+  slug: string,
+  name?: string,
+  versions: ISyncedVersions
+}
+
+export type ISyncedZones = {
+  added: ISyncedZone[],
+  updated: ISyncedZone[],
+  removed: {slug: string, name?: string, versions: IVersion[]}[]
 }

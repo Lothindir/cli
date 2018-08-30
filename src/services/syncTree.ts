@@ -12,7 +12,14 @@ import * as utils from '@dimerapp/cli-utils'
 
 export default async function syncTree (ctx, client) {
   const tree = await client.tree()
-  const versions: Version[] = tree.map((node) => new Version(ctx, node.version, node.tree))
+
+  /**
+   * The versions returned from the fsclient tree, has
+   * zoneSlug attached to them as property. So we
+   * can use that to initiate a new Version
+   * instance.
+   */
+  const versions: Version[] = tree.map((node) => new Version(ctx, node.version.zoneSlug, node.version, node.tree))
 
   /**
    * Process all versions in parallel

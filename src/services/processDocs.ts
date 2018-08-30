@@ -12,7 +12,7 @@ import * as Datastore from '@dimerapp/datastore'
 import * as FsClient from '@dimerapp/fs-client'
 import * as utils from '@dimerapp/cli-utils'
 import syncConfig from './syncConfig'
-import syncVersions from './syncVersions'
+import syncZones from './syncZones'
 import syncTree from './syncTree'
 import imageProcessor from './imageProcessor'
 import watcher from './watcher'
@@ -36,7 +36,7 @@ export default async function processDocs (basePath: string, configOptions, watc
      */
     const parsed = await syncConfig(ctx)
     if (!parsed) {
-      return
+      process.exit(1)
     }
 
     /**
@@ -52,12 +52,23 @@ export default async function processDocs (basePath: string, configOptions, watc
     /**
      * Sync versions
      */
-    const { added } = await syncVersions(ctx)
+    const { added, updated } = await syncZones(ctx)
+
+    /**
+     * We pull versions from the added and the updated zones and
+     * re-create a new nested array.
+     *
+     * In short these are the one's which exists in the user config.
+     */
+    const zonesAndVersions = added.concat(updated).map((zone) => {
+      const versions = zone.versions.added.concat(zone.versions.updated)
+      return { slug: zone.slug, versions }
+    }, [])
 
     /**
      * Setup fsclient and sync files tree
      */
-    const client = new FsClient(ctx, added)
+    const client = new FsClient(ctx, zonesAndVersions)
     await syncTree(ctx, client)
 
     /**
@@ -68,9 +79,15 @@ export default async function processDocs (basePath: string, configOptions, watc
     /**
      * Create search index if enabled by end user
      */
-    if ((ctx.get('config') as IConfig).compilerOptions.detectAssets) {
-      utils.info('creating search index')
-      await Promise.all(added.map(({ no }) => store.indexVersion(no)))
+    if ((ctx.get('config') as IConfig).compilerOptions.createSearchIndex) {
+      utils.info('creating search index', true)
+
+      await Promise.all(zonesAndVersions.reduce((result, { slug, versions }) => {
+        versions.forEach(({ no }) => {
+          result.push(store.indexVersion(slug, no))
+        })
+        return result
+      }, []))
     }
 
     /**
@@ -83,5 +100,6 @@ export default async function processDocs (basePath: string, configOptions, watc
     }
   } catch (error) {
     utils.error(error)
+    process.exit(1)
   }
 }

@@ -8,7 +8,7 @@
 */
 
 import syncConfig from './syncConfig'
-import syncVersions from './syncVersions'
+import syncedZones from './syncZones'
 import * as utils from '@dimerapp/cli-utils'
 
 import syncTree from './syncTree'
@@ -26,13 +26,30 @@ async function handleConfigChanges (ctx, client, event) {
     return
   }
 
-  const { added, removed } = await syncVersions(ctx)
+  const { added, removed, updated } = await syncedZones(ctx)
 
   /**
-   * Notify client about the synced versions
+   * Remove all versions from the removed zones
    */
-  removed.forEach((version) => client.unwatchVersion(version))
-  added.forEach((version) => client.watchVersion(version))
+  removed.forEach((zone) => {
+    zone.versions.forEach((version) => {
+      client.unwatchVersion(zone.slug, version)
+    })
+  })
+
+  /**
+   * Go over added and updated zones, and remove the removed
+   * versions, add the added versions.
+   */
+  added.concat(updated).forEach((zone) => {
+    zone.versions.removed.forEach((version) => {
+      client.unwatchVersion(zone.slug, version)
+    })
+
+    zone.versions.added.forEach((version) => {
+      client.watchVersion(zone.slug, version)
+    })
+  })
 
   /**
    * Sync the tree again
@@ -54,7 +71,7 @@ async function handleDocChanges (ctx, client, { versions, file }) {
   /**
    * Process doc for all the versions
    */
-  const docs = await Promise.all(versions.map((version) => processDoc(file, version, ctx)))
+  const docs = await Promise.all(versions.map((version) => processDoc(file, version.zoneSlug, version, ctx)))
 
   const errors = docs.reduce<any[]>((collection, { errors }) => {
     collection = collection.concat(errors)
@@ -84,7 +101,7 @@ async function handleDocRemoval (ctx, client, { versions, baseName }) {
   /**
    * Remove doc for all the versions
    */
-  await Promise.all(versions.map(({ no }) => ctx.get('store').removeDoc(no, baseName)))
+  await Promise.all(versions.map(({ no, zoneSlug }) => ctx.get('store').removeDoc(zoneSlug, no, baseName)))
 
   /**
    * Persist store: IMPORTANT

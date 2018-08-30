@@ -7,7 +7,7 @@
 * file that was distributed with this source code.
 */
 
-const nodeRes = require('node-res')
+import * as nodeRes from 'node-res'
 
 /**
  * Send server side events via pub/sub
