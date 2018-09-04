@@ -1,6 +1,6 @@
 {
   "name": "@dimerapp/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "virk",
   "bin": {
     "dimer": "./bin/run"
@@ -13,7 +13,7 @@
     "@dimerapp/cli-utils": "^1.0.3",
     "@dimerapp/config-parser": "^2.0.2",
     "@dimerapp/context": "^2.0.0",
-    "@dimerapp/datastore": "^2.0.1",
+    "@dimerapp/datastore": "^3.0.0",
     "@dimerapp/dfile": "^1.1.1",
     "@dimerapp/fs-client": "^2.0.0",
     "@dimerapp/http-server": "^2.0.0",
