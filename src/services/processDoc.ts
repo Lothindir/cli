@@ -13,7 +13,11 @@ import { IVersion } from '../contracts/index'
  * Process a given file at a time, if there are fatal messages, they will be returned
  * as an array.
  */
-export default async function processDoc (file: any, zoneSlug: string, version: IVersion, ctx: any): Promise<{ errors: any[] }> {
+export default async function processDoc (
+  file: any,
+  zoneSlug: string,
+  version: IVersion,
+  ctx: any): Promise<{ errors: any[] }> {
   /**
    * Do not process when there are fatal error message, however
    * return all errors and warning.

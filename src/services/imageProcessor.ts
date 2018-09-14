@@ -12,6 +12,11 @@ import * as utils from '@dimerapp/cli-utils'
 import { dirname } from 'path'
 import * as prettyBytes from 'pretty-bytes'
 
+/**
+ * Processes detected images inside markdown by moving
+ * them to the dist folder and genearting thumbs, only
+ * when instructed.
+ */
 export default function imageProcessor (ctx): { img, onUrl } {
   const img = new Image(ctx)
 

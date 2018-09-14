@@ -29,7 +29,7 @@ async function handleConfigChanges (ctx, client, event) {
   const { added, removed, updated } = await syncedZones(ctx)
 
   /**
-   * Remove all versions from the removed zones
+   * Remove all versions of removed zones
    */
   removed.forEach((zone) => {
     zone.versions.forEach((version) => {
