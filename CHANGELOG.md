@@ -1,3 +1,18 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/dimerapp/cli/compare/v1.0.5...v1.0.6) (2018-09-17)
+
+
+### Bug Fixes
+
+* **serve:** override config assetsUrl in development ([8139792](https://github.com/dimerapp/cli/commit/8139792))
+
+
+### Features
+
+* add support for extensions and lifecycle hooks ([a7078d9](https://github.com/dimerapp/cli/commit/a7078d9))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/dimerapp/cli/compare/v1.0.4...v1.0.5) (2018-09-05)
 
