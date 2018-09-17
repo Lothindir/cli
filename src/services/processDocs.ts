@@ -10,15 +10,19 @@
 import * as Context from '@dimerapp/context'
 import * as Datastore from '@dimerapp/datastore'
 import * as FsClient from '@dimerapp/fs-client'
+import * as Dfile from '@dimerapp/dfile'
 import * as utils from '@dimerapp/cli-utils'
 import syncConfig from './syncConfig'
 import syncZones from './syncZones'
 import syncTree from './syncTree'
 import imageProcessor from './imageProcessor'
 import watcher from './watcher'
-import { IConfig } from '../contracts/index'
+import { IConfig, IHookTypes } from '../contracts/index'
+import hooks from './hooks'
+import createSearchIndex from './createSearchIndex'
+import installExtensions from './installExtensions'
 
-export default async function processDocs (basePath: string, configOptions, watcherFn?: Function) {
+export default async function processDocs (basePath: string, masterOptions, watcherFn?: Function) {
   const ctx = new Context(basePath)
 
   try {
@@ -27,7 +31,7 @@ export default async function processDocs (basePath: string, configOptions, watc
      */
     const store = new Datastore(ctx)
     ctx.set('cli', 'store', store)
-    ctx.set('cli', 'configOptions', configOptions)
+    ctx.set('cli', 'masterOptions', masterOptions)
     await store.load(true)
 
     /**
@@ -38,6 +42,19 @@ export default async function processDocs (basePath: string, configOptions, watc
     if (!parsed) {
       process.exit(1)
     }
+
+    /**
+     * Installing extensions
+     */
+    installExtensions(ctx, watcherFn ? 'serve' : 'build')
+
+    /**
+     * Execute before compile hooks
+     */
+    await hooks.executeBeforeHooks(IHookTypes.COMPILE, {
+      config: ctx.get('config'),
+      Markdown: Dfile.Markdown,
+    })
 
     /**
      * Set markdown options to handle assets, when `detectAssets` is
@@ -77,18 +94,14 @@ export default async function processDocs (basePath: string, configOptions, watc
     await store.persist()
 
     /**
-     * Create search index if enabled by end user
+     * Create search index
      */
-    if ((ctx.get('config') as IConfig).compilerOptions.createSearchIndex) {
-      utils.info('creating search index', true)
+    await createSearchIndex(ctx, zonesAndVersions)
 
-      await Promise.all(zonesAndVersions.reduce((result, { slug, versions }) => {
-        versions.forEach(({ no }) => {
-          result.push(store.indexVersion(slug, no))
-        })
-        return result
-      }, []))
-    }
+    /**
+     * Execute after hooks
+     */
+    await hooks.executeAfterHooks(IHookTypes.COMPILE, {})
 
     /**
      * Start the watcher, when watcherFn is provided. Also all

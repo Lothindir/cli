@@ -45,6 +45,9 @@ test.group('Version', (group) => {
           metaData: {},
           fatalMessages: [],
           messages: [],
+          vfile: {
+            path: 'foo.md',
+          },
           contents: 'hello',
         },
      ])
@@ -125,6 +128,9 @@ test.group('Version', (group) => {
         fatalMessages: [],
         messages: ['Bad file'],
         contents: 'hello',
+        vfile: {
+          path: 'foo.md',
+        },
       },
     ])
 

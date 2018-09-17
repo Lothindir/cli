@@ -127,6 +127,38 @@ Here's the complete [syntax guide](https://dimerapp.com/syntax-guide)
 
 ---
 
+## Extensions
+The CLI supports extensions written in Javascript. The extensions can listen for multiple events and can perform different tasks.
+
+```json
+{
+  "compilerOptions": {
+    "extensions": ["extensions/addMacros.js"]
+  }
+}
+```
+
+The `extensions` array accepts paths to the Javascript files. The `path` can be an absolute path or relative path from the project root.
+
+**extensions/addMacros.js**
+```js
+module.exports = function (hooks, commandName) {
+  hooks.before('compile', function ({ config, Markdown }) {
+    Markdown.addMacro('button', macroCallback)
+  })
+}
+```
+
+Following is the list of hooks exposed by Dimer CLI. 
+
+| Hook | Lifecycle | Data | Description |
+|-------|----------|------|-------------|
+| compile | before | `{config, Markdown}` | The parsed copy of [config](https://github.com/dimerapp/config-parser) and [Markdown](https://github.com/dimerapp/markdown) class is passed |
+| compile | after | `{}` | Nothing is passed in after compile hook |
+| doc | before | `{ doc, zoneSlug, versionNo, path}` | The parsed `doc` along with `zone`, `version` and it's absolute path on disk is passed  |
+| doc | after | ^ | Same data as the before hook |
+
+
 ## Packages
 The following are the first party packages used to build dimer.
 
