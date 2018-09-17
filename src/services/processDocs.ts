@@ -22,7 +22,7 @@ import hooks from './hooks'
 import createSearchIndex from './createSearchIndex'
 import installExtensions from './installExtensions'
 
-export default async function processDocs (basePath: string, configOptions, watcherFn?: Function) {
+export default async function processDocs (basePath: string, masterOptions, watcherFn?: Function) {
   const ctx = new Context(basePath)
 
   try {
@@ -31,7 +31,7 @@ export default async function processDocs (basePath: string, configOptions, watc
      */
     const store = new Datastore(ctx)
     ctx.set('cli', 'store', store)
-    ctx.set('cli', 'configOptions', configOptions)
+    ctx.set('cli', 'masterOptions', masterOptions)
     await store.load(true)
 
     /**

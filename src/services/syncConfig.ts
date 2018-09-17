@@ -12,8 +12,8 @@ import * as utils from '@dimerapp/cli-utils'
 import { IConfig } from '../contracts/index'
 
 export default async function syncConfig (ctx): Promise<boolean> {
-  const options = Object.assign(ctx.get('configOptions') || {}, { validateDomain: false })
-  const parser = new ConfigParser(ctx, options)
+  const masterOptions = Object.assign(ctx.get('masterOptions') || {}, { validateDomain: false })
+  const parser = new ConfigParser(ctx, masterOptions)
 
   try {
     utils.info('parse config', true)
