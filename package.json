@@ -11,10 +11,10 @@
   "dependencies": {
     "@dimerapp/assets-middleware": "^1.0.0",
     "@dimerapp/cli-utils": "^1.0.3",
-    "@dimerapp/config-parser": "^2.0.2",
+    "@dimerapp/config-parser": "^2.0.3",
     "@dimerapp/context": "^2.0.0",
     "@dimerapp/datastore": "^3.0.1",
-    "@dimerapp/dfile": "^1.1.1",
+    "@dimerapp/dfile": "^1.1.2",
     "@dimerapp/fs-client": "^2.0.0",
     "@dimerapp/http-server": "^2.0.2",
     "@dimerapp/image": "^1.0.2",

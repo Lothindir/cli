@@ -7,7 +7,8 @@
 * file that was distributed with this source code.
 */
 
-import { IVersion } from '../contracts/index'
+import { IVersion, IHookTypes } from '../contracts/index'
+import hooks from './hooks'
 
 /**
  * Process a given file at a time, if there are fatal messages, they will be returned
@@ -28,7 +29,28 @@ export default async function processDoc (
 
   try {
     const doc = Object.assign({ content: file.contents }, file.metaData)
+
+    /**
+     * Execute the before hook
+     */
+    await hooks.executeBeforeHooks(IHookTypes.DOC, {
+      doc,
+      zoneSlug,
+      versionNo: version.no,
+      path: file.vfile.path,
+    })
+
     await ctx.get('store').saveDoc(zoneSlug, version.no, file.baseName, doc)
+
+    /**
+     * Execute the after hook
+     */
+    await hooks.executeAfterHooks(IHookTypes.DOC, {
+      doc,
+      zoneSlug,
+      versionNo: version.no,
+      path: file.vfile.path,
+    })
 
     /**
      * Since we save the file with non fatal errors, we still have to return

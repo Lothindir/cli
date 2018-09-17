@@ -18,7 +18,7 @@ export type IVersionTree = {
 export type IZone = {
   slug: string,
   name?: string,
-  versions: IVersion[]
+  versions: IVersion[],
 }
 
 export type IConfig = {
@@ -31,23 +31,29 @@ export type IConfig = {
     assetsUrl: string,
     createSearchIndex: boolean,
     detectAssets: true,
+    extensions: (Function | String)[]
   },
 }
 
 export type ISyncedVersions = {
   added: IVersion[],
   removed: IVersion[],
-  updated: IVersion[]
+  updated: IVersion[],
 }
 
 export type ISyncedZone = {
   slug: string,
   name?: string,
-  versions: ISyncedVersions
+  versions: ISyncedVersions,
 }
 
 export type ISyncedZones = {
   added: ISyncedZone[],
   updated: ISyncedZone[],
-  removed: {slug: string, name?: string, versions: IVersion[]}[]
+  removed: {slug: string, name?: string, versions: IVersion[]}[],
+}
+
+export enum IHookTypes {
+  COMPILE = 'compile',
+  DOC = 'doc',
 }

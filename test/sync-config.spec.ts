@@ -84,7 +84,7 @@ test.group('Sync config', (group) => {
       zones: [{
         slug: 'default',
         name: 'default',
-        versions: [{ no: '1.0.0', location: 'docs/1.0.0', default: true }]
+        versions: [{ no: '1.0.0', location: 'docs/1.0.0', default: true }],
       }],
       websiteOptions: {},
       compilerOptions: {
@@ -92,6 +92,7 @@ test.group('Sync config', (group) => {
         assetsUrl: 'http://localhost:5000/__assets',
         createSearchIndex: true,
         detectAssets: true,
+        validateDomain: false,
       },
     })
   })
