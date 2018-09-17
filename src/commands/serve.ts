@@ -50,9 +50,18 @@ export default class Serve extends Command {
     utils.action('API Server:', apiUrl)
 
     /**
+     * In development, we want master options to dictate the config
+     * options.
+     */
+    const masterOptions = {
+      apiUrl,
+      assetsUrl: `${apiUrl}/__assets`
+    }
+
+    /**
      * Process docs and publish watcher events via SSE
      */
-    await processDocs(basePath, { apiUrl }, function onEvent (event) {
+    await processDocs(basePath, masterOptions, function onEvent (event) {
       if (['change:doc', 'add:doc', 'change:config', 'add:config'].indexOf(event) > -1) {
         sse.publish('reload', {})
       }
