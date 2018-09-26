@@ -1,6 +1,6 @@
 {
   "name": "@dimerapp/cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "virk",
   "bin": {
     "dimer": "./bin/run"
@@ -17,7 +17,7 @@
     "@dimerapp/dfile": "^1.1.2",
     "@dimerapp/fs-client": "^2.0.0",
     "@dimerapp/http-server": "^2.0.2",
-    "@dimerapp/image": "^1.0.2",
+    "@dimerapp/image": "^1.0.3",
     "@oclif/command": "^1.5.1",
     "@oclif/config": "^1.7.6",
     "@oclif/plugin-help": "^2.1.2",
@@ -30,12 +30,12 @@
     "@oclif/tslint": "^3.1.0",
     "@types/chai": "^4.1.5",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.10.3",
+    "@types/node": "^10.11.0",
     "chai": "^4.1.2",
     "cz-conventional-changelog": "^2.1.0",
     "globby": "^8.0.1",
     "intercept-stdout": "^0.1.2",
-    "japa": "^2.0.1",
+    "japa": "^2.0.2",
     "mrm": "^1.2.1",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
