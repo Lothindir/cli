@@ -55,9 +55,10 @@ You can consume this API to create:
 ---
 
 ## Features
+
 All of the following features are supported out of the box by Dimer and requires minimal or no configuration.
 
-1.[Language agnostic CLI](#language-agnostic-cli). You can use dimer on any major operating system, without installing any specific programming language.
+1. [Language agnostic CLI](#language-agnostic-cli). You can use dimer on any major operating system, without installing any specific programming language.
 2. Inbuilt search built on top of [lunrjs](https://lunrjs.com/).
 3. Support for multiple [versions of documentation](#multiple-versions-of-documentation).
 4. [Image detection](#image-detection).
