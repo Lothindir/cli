@@ -1,3 +1,13 @@
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/dimerapp/cli/compare/v1.0.8...v1.0.9) (2018-10-10)
+
+
+### Bug Fixes
+
+* **typo:** Fix bullet points ([e062680](https://github.com/dimerapp/cli/commit/e062680))
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/dimerapp/cli/compare/v1.0.7...v1.0.8) (2018-09-26)
 
