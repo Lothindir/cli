@@ -1,3 +1,6 @@
 {
-  "extends": "@adonisjs/mrm-preset/_tslint"
+  "extends": [
+    "@adonisjs/mrm-preset/_tslint"
+  ],
+  "rules": {}
 }
