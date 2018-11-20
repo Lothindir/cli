@@ -10,11 +10,10 @@
 import * as utils from '@dimerapp/cli-utils'
 
 export default async function createSearchIndex (ctx, zonesAndVersions) {
-  utils.info('creating search index', true)
-
   await Promise.all(zonesAndVersions.reduce((result, { slug, versions }) => {
     versions.forEach(({ no }) => {
-      result.push(ctx.get('store').indexVersion(slug, no))
+      utils.info(`creating search index for ${slug}/${no} [${slug.language || 'en'}]`)
+      result.push(ctx.get('store').indexVersion(slug, no, slug.language))
     })
     return result
   }, []))

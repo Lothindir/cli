@@ -1,3 +1,13 @@
+<a name="1.0.11"></a>
+## [1.0.11](https://github.com/dimerapp/cli/compare/v1.0.10...v1.0.11) (2018-11-20)
+
+
+### Features
+
+* **search:** pass zone language to search index creation ([a9969f5](https://github.com/dimerapp/cli/commit/a9969f5))
+
+
+
 <a name="1.0.10"></a>
 ## [1.0.10](https://github.com/dimerapp/cli/compare/v1.0.9...v1.0.10) (2018-11-06)
 
