@@ -1,3 +1,7 @@
+## [1.0.13](https://github.com/dimerapp/cli/compare/1.0.12...1.0.13) (2020-01-27)
+
+
+
 <a name="1.0.12"></a>
 ## [1.0.12](https://github.com/dimerapp/cli/compare/v1.0.11...v1.0.12) (2019-03-05)
 
