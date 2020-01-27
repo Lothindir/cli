@@ -14,7 +14,7 @@
     "@dimerapp/config-parser": "^2.0.4",
     "@dimerapp/context": "^2.0.0",
     "@dimerapp/datastore": "^3.0.3",
-    "@dimerapp/dfile": "^1.1.3",
+    "@dimerapp/dfile": "^1.1.4",
     "@dimerapp/fs-client": "^2.0.1",
     "@dimerapp/http-server": "^2.0.3",
     "@dimerapp/image": "^1.0.3",
