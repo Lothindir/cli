@@ -22,7 +22,8 @@
     "@oclif/config": "^1.12.9",
     "@oclif/plugin-help": "^2.1.6",
     "pretty-bytes": "^5.1.0",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "ws": "^7.2.1"
   },
   "devDependencies": {
     "@adonisjs/mrm-preset": "^1.0.16",

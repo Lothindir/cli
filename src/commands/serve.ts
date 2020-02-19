@@ -3,6 +3,7 @@ import processDocs from '../services/processDocs'
 import * as httpServer from '@dimerapp/http-server'
 import * as assetsMiddleware from '@dimerapp/assets-middleware'
 import * as utils from '@dimerapp/cli-utils'
+import * as WebSocket from 'ws'
 import SSE from '../services/SSE'
 
 export default class Serve extends Command {
@@ -38,7 +39,8 @@ export default class Serve extends Command {
     })
 
     const apiUrl = `http://localhost:${flags.port}`
-    createServer().listen(flags.port)
+    const server = createServer().listen(flags.port)
+    const ws = new WebSocket.Server({ server })
 
     /**
      * Expose route for SSE. Make sure to bind route after createServer
@@ -55,13 +57,36 @@ export default class Serve extends Command {
      */
     const masterOptions = {
       apiUrl,
-      assetsUrl: `${apiUrl}/__assets`
+      assetsUrl: `${apiUrl}/__assets`,
     }
 
     /**
      * Process docs and publish watcher events via SSE
      */
-    await processDocs(basePath, masterOptions, function onEvent (event) {
+    await processDocs(basePath, masterOptions, function onEvent (event, doc) {
+      if (['change:doc', 'add:doc'].includes(event)) {
+        if (!doc.file.metaData) {
+          return
+        }
+
+        const permalink = doc.file.metaData.permalink
+        const version = doc.versions[0].no
+        const zone = doc.versions[0].zoneSlug
+
+        ws.clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              event: event,
+              data: {
+                permalink,
+                version,
+                zone,
+              },
+            }))
+          }
+        })
+      }
+
       if (['change:doc', 'add:doc', 'change:config', 'add:config'].indexOf(event) > -1) {
         sse.publish('reload', {})
       }
