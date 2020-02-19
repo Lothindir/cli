@@ -1,6 +1,6 @@
 {
   "name": "@dimerapp/cli",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "author": "virk",
   "bin": {
     "dimer": "./bin/run"

@@ -1,3 +1,12 @@
+## [1.0.15](https://github.com/dimerapp/cli/compare/v1.0.14...v1.0.15) (2020-02-19)
+
+
+### Features
+
+* add support for receiving updates via ws server ([7ae4e8f](https://github.com/dimerapp/cli/commit/7ae4e8f120c863365d742ee0049f8929aa2eb05c))
+
+
+
 ## [1.0.14](https://github.com/dimerapp/cli/compare/v1.0.13...v1.0.14) (2020-01-28)
 
 
