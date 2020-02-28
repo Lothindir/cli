@@ -26,7 +26,7 @@
 
 Here we discuss technical aspects of Dimer along with `Why it was created`. We recommend reading the official docs to get started with Dimer.
 
-### 💁 [Official docs ➞](https://guides.dimerapp.org)
+### 💁 [Official docs ➞](https://guides.dimerapp.com)
 
 ---
 
